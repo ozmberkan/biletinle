@@ -59,7 +59,7 @@ const RegisterPage = () => {
         <div className="flex flex-col max-w-lg">
           <h1 className="text-3xl font-bold">Merhaba!</h1>
           <p className="tracking-tight leading-tight text-muted-foreground">
-            Biletinle'ye kaydolmak için aşağıdaki formu doldurun. Hızlı ve
+            Biletinle&apos;ye kaydolmak için aşağıdaki formu doldurun. Hızlı ve
             güvenli bir şekilde kayıt olabilirsiniz. Unutmayın, biletlerinizi
             kolayca satın alabilir ve etkinliklere katılabilirsiniz.
           </p>

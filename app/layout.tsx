@@ -1,9 +1,8 @@
 import { Montserrat } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 
-import "./globals.css";
-import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import "./globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",

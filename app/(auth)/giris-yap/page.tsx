@@ -65,8 +65,8 @@ const LoginPage = () => {
         <div className="flex flex-col max-w-lg">
           <h1 className="text-3xl font-bold">Giriş Yap!</h1>
           <p className="tracking-tight leading-tight text-muted-foreground">
-            Biletinle'ye giriş yapmak için aşağıdaki formu doldurun. Hızlı ve
-            güvenli bir şekilde giriş yapabilirsiniz.
+            Biletinle&apos;ye giriş yapmak için aşağıdaki formu doldurun. Hızlı
+            ve güvenli bir şekilde giriş yapabilirsiniz.
           </p>
           <Form {...form}>
             <form
