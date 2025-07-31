@@ -21,7 +21,6 @@ export default function RootLayout({
         <NextTopLoader color="#DB292C" showSpinner={false} />
         <Header />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );
