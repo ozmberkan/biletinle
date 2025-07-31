@@ -11,18 +11,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { register } from "@/services/userService";
+import { useAuthStore } from "@/store/useAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Ticket } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email("Geçerli bir e-posta adresi girin"),
-  password: z.string().min(6, "Parola en az 6 karakter olmalıdır"),
+  password: z.string().min(4, "Parola en az 4 karakter olmalıdır"),
 });
 
 const RegisterPage = () => {
+  const setUser = useAuthStore((state) => state.setUser);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +37,20 @@ const RegisterPage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    register(values)
+      .then((response) => {
+        if (response.data.success) {
+          toast.success("Kayıt başarılı! Giriş yapabilirsiniz.");
+          setUser(response.data.data);
+          form.reset();
+        }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        console.log("finally çalıştı");
+      });
   };
 
   return (

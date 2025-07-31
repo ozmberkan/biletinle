@@ -1,6 +1,6 @@
+"use client";
 import { BookOpenIcon, InfoIcon, LifeBuoyIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -15,8 +15,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Logo from "../logo";
+import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/store/useAuthStore";
 import Link from "next/link";
+import Logo from "../logo";
+import { Skeleton } from "../ui/skeleton";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -67,6 +70,9 @@ const navigationLinks = [
 ];
 
 export default function Header() {
+  const user = useAuthStore((state) => state.user);
+  const loading = useAuthStore((state) => state.loading);
+
   return (
     <header className="border-b px-4 md:px-6 md:sticky md:top-0 bg-background z-50">
       <div className="flex h-16 items-center justify-between gap-4 container mx-auto">
@@ -250,12 +256,22 @@ export default function Header() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="text-sm">
-            <Link href="/giris-yap">Giriş Yap</Link>
-          </Button>
-          <Button asChild size="sm" className="text-sm">
-            <Link href="/kayit-ol">Başlayın</Link>
-          </Button>
+          {loading ? (
+            <Skeleton className="w-24 h-8" />
+          ) : user ? (
+            <Button asChild size="sm" className="text-sm">
+              <Link href="/profilim">Hesabım</Link>
+            </Button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Button asChild variant="ghost" size="sm" className="text-sm">
+                <Link href="/giris-yap">Giriş Yap</Link>
+              </Button>
+              <Button asChild size="sm" className="text-sm">
+                <Link href="/kayit-ol">Başlayın</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>

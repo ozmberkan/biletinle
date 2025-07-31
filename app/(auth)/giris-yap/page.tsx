@@ -11,18 +11,29 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { login } from "@/services/userService";
+import { useAuthStore } from "@/store/useAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Ticket } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email("Geçerli bir e-posta adresi girin"),
-  password: z.string().min(6, "Parola en az 6 karakter olmalıdır"),
+  password: z.string().min(4, "Parola en az 4 karakter olmalıdır"),
 });
 
 const LoginPage = () => {
+  const setUser = useAuthStore((state) => state.setUser);
+  const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,7 +43,20 @@ const LoginPage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    login(values)
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Giriş başarılı!");
+          setUser(res.data.data);
+          form.reset();
+        }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        console.log("finally çalıştı");
+      });
   };
 
   return (
