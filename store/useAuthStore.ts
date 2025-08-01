@@ -1,12 +1,16 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import { AuthState } from "@/types/types";
+import { create, } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      loading: true, // başlangıçta true
+      logout: () => {
+        set({ user: null });
+      },
+      loading: true,
       setUser: (user) => set({ user }),
       setLoading: (loading) => set({ loading }),
     }),
@@ -14,12 +18,9 @@ export const useAuthStore = create<AuthState>()(
       name: "auth-store",
       storage: createJSONStorage(() => localStorage),
 
-      // Hydration başlar
       onRehydrateStorage: () => {
         return (state) => {
-          if (state) {
-            state.setLoading(false);
-          }
+          state?.setLoading(false);
         };
       },
     }

@@ -1,7 +1,6 @@
-import PageContainer from "@/components/Containers/PageContainer";
-
+"use client";
 const HomePage = () => {
-  return <PageContainer className="container mx-auto">Home Page</PageContainer>;
+  return <section></section>;
 };
 
 export default HomePage;

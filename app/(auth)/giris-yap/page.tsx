@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("Geçerli bir e-posta adresi girin"),
@@ -27,12 +28,9 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
-  const setUser = useAuthStore((state) => state.setUser);
-  const user = useAuthStore((state) => state.user);
+  const router = useRouter();
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,6 +46,9 @@ const LoginPage = () => {
         if (res.data.success) {
           toast.success("Giriş başarılı!");
           setUser(res.data.data);
+          setTimeout(() => {
+            router.push("/");
+          }, 1500);
           form.reset();
         }
       })
@@ -94,7 +95,11 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Parola</FormLabel>
                     <FormControl>
-                      <Input placeholder="***********" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="***********"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />

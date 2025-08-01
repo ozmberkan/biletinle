@@ -20,6 +20,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import Link from "next/link";
 import Logo from "../logo";
 import { Skeleton } from "../ui/skeleton";
+import { logout } from "@/services/userService";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -72,6 +73,13 @@ const navigationLinks = [
 export default function Header() {
   const user = useAuthStore((state) => state.user);
   const loading = useAuthStore((state) => state.loading);
+
+  const handleLogout = () => {
+    useAuthStore.getState().logout();
+    logout().then(() => {
+      window.location.href = "/giris-yap";
+    });
+  };
 
   return (
     <header className="border-b px-4 md:px-6 md:sticky md:top-0 bg-background z-50">
@@ -259,9 +267,19 @@ export default function Header() {
           {loading ? (
             <Skeleton className="w-24 h-8" />
           ) : user ? (
-            <Button asChild size="sm" className="text-sm">
-              <Link href="/profilim">Hesabım</Link>
-            </Button>
+            <>
+              <Button asChild size="sm" className="text-sm">
+                <Link href="/profilim">Hesabım</Link>
+              </Button>
+              <Button
+                onClick={handleLogout}
+                variant="ghost"
+                size="sm"
+                className="text-sm"
+              >
+                Çıkış Yap
+              </Button>
+            </>
           ) : (
             <div className="flex items-center gap-2">
               <Button asChild variant="ghost" size="sm" className="text-sm">

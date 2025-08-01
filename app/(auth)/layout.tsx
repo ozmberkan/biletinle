@@ -4,7 +4,7 @@ import React from "react";
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <section>
-      <Toaster />
+      <Toaster richColors />
       {children}
     </section>
   );
