@@ -61,81 +61,67 @@ const LoginPage = () => {
   };
 
   return (
-    <PageContainer className="container mx-auto flex items-center  bg-gradient-to-br from-primary to-red-900/90 rounded-xl w-full p-2 h-[800px]">
-      <div className="w-7/12 bg-white h-full rounded-xl flex items-center justify-center p-24 flex-col">
-        <div className="flex flex-col max-w-lg">
-          <h1 className="text-3xl font-bold">Giriş Yap!</h1>
-          <p className="tracking-tight leading-tight text-muted-foreground">
-            Biletinle&apos;ye giriş yapmak için aşağıdaki formu doldurun. Hızlı
-            ve güvenli bir şekilde giriş yapabilirsiniz.
-          </p>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 mt-3"
-            >
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>E-Posta</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ör: example@gmail.com" {...field} />
-                    </FormControl>
+    <PageContainer className="container mx-auto  flex items-center  justify-center  rounded-xl w-full p-2 h-[800px]">
+      <div className="flex flex-col max-w-lg">
+        <h1 className="text-3xl font-bold">Giriş Yap!</h1>
+        <p className="tracking-tight leading-tight text-muted-foreground">
+          Biletinle&apos;ye giriş yapmak için aşağıdaki formu doldurun. Hızlı ve
+          güvenli bir şekilde giriş yapabilirsiniz.
+        </p>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 mt-3"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>E-Posta</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ör: example@gmail.com" {...field} />
+                  </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Parola</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="***********"
-                        {...field}
-                      />
-                    </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Parola</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="***********"
+                      {...field}
+                    />
+                  </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* <div className="w-full flex items-center mb-4 justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
-                  <Label htmlFor="remember">Beni Hatırla</Label>
-                </div>
-                <Link
-                  href={"/parolami-unuttum"}
-                  className="text-sm text-primary hover:underline font-semibold"
-                >
-                  Parolamı Unuttum
-                </Link>
-              </div> */}
-              <div className="w-full">
-                <Button type="submit">Giriş Yap</Button>
-              </div>
-              <Separator />
-              <div className="w-full flex items-center justify-start">
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="w-full">
+              <Button type="submit">Giriş Yap</Button>
+            </div>
+            <div className="w-full flex items-center justify-start">
+              <div className="text-xs text-muted-foreground font-medium">
+                Bir hesaba sahip değil misin?{" "}
                 <Link
                   href={"/kayit-ol"}
-                  className="text-sm text-primary hover:underline font-semibold"
+                  className="text-primary hover:underline"
                 >
-                  Bir hesaba sahip değil misin?
+                  Kayıt Ol
                 </Link>
               </div>
-            </form>
-          </Form>
-        </div>
-      </div>
-      <div className="w-5/12 flex items-center justify-center text-white">
-        <Ticket className="rotate-45 drop-shadow-2xl" size={200} />
+            </div>
+          </form>
+        </Form>
       </div>
     </PageContainer>
   );
