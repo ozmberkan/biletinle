@@ -5,8 +5,7 @@ const AUTH_PAGES = ["/giris-yap", "/kayit-ol"];
 const isAuthPages = (url: string) => AUTH_PAGES.some((page) => url.startsWith(page));
 
 const PAGE_CLAIMS: Record<string, string> = {
-  "/panel/bilet-duzenle": "update-ticket",
-  "/panel/kullanici-ekle": "add-user",
+  "/panel": "panel_access",
 };
 
 export const middleware = async (request: NextRequest) => {
@@ -28,8 +27,9 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(new URL(`/giris-yap?${searchParams.toString()}`, url));
   }
 
+  // ⛔️ Sayfa için yetki kontrolü
   const requiredClaim = PAGE_CLAIMS[pathname];
-  if (requiredClaim && !Array.isArray(tokenPayload.claims) ? false : tokenPayload.claims?.includes(requiredClaim)) {
+  if (requiredClaim && (!Array.isArray(tokenPayload.claims) || !tokenPayload.claims.includes(requiredClaim))) {
     return NextResponse.redirect(new URL("/403", url)); 
   }
 
