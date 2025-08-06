@@ -50,7 +50,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className="flex-grow">
       {loading ? (
         <div>yükleniyor</div>
       ) : user ? (

@@ -1,15 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import CheckAccount from "@/components/CheckAccount";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
+import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -24,12 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html className={montserrat.className} lang="tr">
       <CheckAccount>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <main>{children}</main>
+        <body className={`antialiased flex flex-col min-h-screen`}>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
         </body>
       </CheckAccount>
     </html>
